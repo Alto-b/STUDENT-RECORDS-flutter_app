@@ -28,7 +28,7 @@ class _HomepageState extends State<Homepage> {
   final TextEditingController _userDomainController = TextEditingController();
   final TextEditingController _userContactController = TextEditingController();
  
-  File? _selectedImage;
+  File? _selectedImage;//to hold selected image
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _HomepageState extends State<Homepage> {
       ),
       
 
-      //floating button 
+      //floating action button 
       floatingActionButton:FloatingActionButton(
        
         onPressed: () {
@@ -68,57 +68,32 @@ class _HomepageState extends State<Homepage> {
         },
         mini: true,
         backgroundColor: Colors.teal,
-        child: Icon(Icons.add,color: Colors.white,),
-                
-              
+        child: Icon(Icons.add,color: Colors.white,),      
       ),
-      
-      // body:Padding(
-      //   padding: const EdgeInsets.only(top: 21),
-        
-      //   child: ListView.builder(
-      //     itemCount: name.length,
-      //     itemBuilder:((context, index) {
-            
-      //       // return Text(name[index]);
-      //       return ListTile(
-      //         leading: Text(batch[index]),
-      //         title: Text(name[index]),
-      //         trailing:Row(
-      //           mainAxisSize: MainAxisSize.min,
-      //           children: [
-      //            IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye)), SizedBox(width: 15),
-      //             IconButton(onPressed: (){}, icon: Icon(Icons.edit)), SizedBox(width: 15),
-      //             IconButton(onPressed: (){}, icon: Icon(Icons.delete)),
-      //           ],
-      //         )
-      //       );
-      //     }) ,
-      
-      //   ),
-      // )
 
       body: Column(
           children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Expanded(
-              child: TextField(
-                controller: searchController,
-                
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'search name ', 
-                  //label: Text("search")
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Expanded(
+                child: TextField(
+                  controller: searchController,
+                  
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'search name ', 
+                    //label: Text("search")
+                  ),
+                  onChanged: (valu) {
+                    setState(() {
+                      
+                    });
+                    // Handle text field input changes
+                    // You can use the 'value' to filter or search the list
+                  },
                 ),
-                onChanged: (valu) {
-                  setState(() {
-                    
-                  });
-                  // Handle text field input changes
-                  // You can use the 'value' to filter or search the list
-                },
               ),
             ),
           ),
@@ -128,9 +103,9 @@ class _HomepageState extends State<Homepage> {
               future: dbhelper.searchAll(searchController.text),
              
             builder: (context, snapshot) {
-              if(!snapshot.hasData){
-                return CircularProgressIndicator();
-              }
+              // if(!snapshot.hasData){
+              //   return CircularProgressIndicator();
+              // }
               final data=snapshot.data!;
               return ListView.builder(
                 itemCount: data.length,
@@ -221,47 +196,49 @@ class _HomepageState extends State<Homepage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Edit Data'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _userNameController,
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: _userContactController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Age'),
-              ),
-              TextField(
-                controller: _userDomainController,
-                decoration: InputDecoration(labelText: 'Domain'),
-              ),
-              Row(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.deepOrange),
-                      ),
-                      child: Image.file(_selectedImage!, fit: BoxFit.cover)),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: _userNameController,
+                  decoration: InputDecoration(labelText: 'Name'),
                 ),
-                Column(children: [
-                  IconButton(
-                      onPressed: () {
-                        _pickImage();
-                      },
-                      icon: Icon(Icons.photo)),
-                  IconButton(
-                      onPressed: () {
-                        _photoImage();
-                      },
-                      icon: Icon(Icons.camera))
-                ])
-              ]),
-            ],
+                TextField(
+                  controller: _userContactController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Age'),
+                ),
+                TextField(
+                  controller: _userDomainController,
+                  decoration: InputDecoration(labelText: 'Domain'),
+                ),
+                Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.deepOrange),
+                        ),
+                        child: Image.file(_selectedImage!, fit: BoxFit.cover)),
+                  ),
+                  Column(children: [
+                    IconButton(
+                        onPressed: () {
+                          _pickImage();
+                        },
+                        icon: Icon(Icons.photo)),
+                    IconButton(
+                        onPressed: () {
+                          _photoImage();
+                        },
+                        icon: Icon(Icons.camera))
+                  ])
+                ]),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(
