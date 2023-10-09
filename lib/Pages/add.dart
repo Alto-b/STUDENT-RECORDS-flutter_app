@@ -21,7 +21,6 @@ class _AddPageState extends State<AddPage> {
   final _userNameController=TextEditingController();
   final _userDomainController=TextEditingController();
   final _userContactController=TextEditingController();
- // bool _validate=false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -141,6 +140,7 @@ class _AddPageState extends State<AddPage> {
                     SizedBox(height: 50,),
           
                     Row(children: [
+                      //INSERT BUTTON
                       IconButton(onPressed: (){
                         //_insertData(context);
                          if (_formKey.currentState!.validate()&&_selectedImage != null) {
@@ -157,18 +157,14 @@ class _AddPageState extends State<AddPage> {
     }
                       }, icon: Icon(Icons.save),color: Colors.green,tooltip:'SAVE',),
                       SizedBox(width: 20,),
+                    //CLEAR BUTTON
                       IconButton(onPressed: (){
                         _userNameController.text="";
                           _userContactController.text="";
                          _userDomainController.text="";
                      }, icon: Icon(Icons.cancel_outlined),color:Colors.red,tooltip:'CLEAR',),
-                      // TextButton(onPressed: (){}, child:Text("save"),),
                       
                     ],),
-          
-                    
-              
-          
               ],
             ),
           ),
@@ -177,7 +173,9 @@ class _AddPageState extends State<AddPage> {
       
     );
   }
-  //insertion happening here start
+
+//insertion happening here start
+
 void _insertData(BuildContext context) async {
     final name = _userNameController.text;
     final contact = int.tryParse(_userContactController.text) ?? 0;
@@ -189,13 +187,13 @@ void _insertData(BuildContext context) async {
       await _selectedImage!
           .copy(imageFile.path); 
 
-      final row = {
+      final row = {//CREATES A MAP THAT REPRESENTS DATA
         'name': name,
         'domain': domain,
         'contact': contact,
         'imagePath': imageFile.path,
       };
-      dbHelper.insert(row).then((id) {
+      dbHelper.insert(row).then((id) { 
         setState(() {
           _userNameController.clear();
           _userDomainController.clear();
@@ -215,6 +213,8 @@ void _insertData(BuildContext context) async {
   }
 
 //insertion happening here end
+
+//IMAGE THROUGH CAMERA
 Future<void> _photoImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.camera);
@@ -226,6 +226,7 @@ Future<void> _photoImage() async {
     }
   }
 
+//IMAGE FROM PHOTOS
 Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);

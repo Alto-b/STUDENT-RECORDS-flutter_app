@@ -7,15 +7,9 @@ import 'package:student_records/Pages/DetailsPage.dart';
 import 'package:student_records/Pages/add.dart';
 import 'package:student_records/db_helper/database_connection.dart';
 
-
-
-
 // ignore: must_be_immutable
 class Homepage extends StatefulWidget {
    const Homepage ({super.key});
-
-
-
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -90,14 +84,11 @@ class _HomepageState extends State<Homepage> {
                     setState(() {
                       
                     });
-                    // Handle text field input changes
-                    // You can use the 'value' to filter or search the list
                   },
                 ),
               ),
             ),
           ),
-           // Add some spacing between the TextField and the list
           Expanded(
             child: FutureBuilder<List<Map<String ,dynamic>>>(
               future: dbhelper.searchAll(searchController.text),

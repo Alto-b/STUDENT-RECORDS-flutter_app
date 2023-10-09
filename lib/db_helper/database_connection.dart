@@ -25,10 +25,11 @@ class DatabaseHelper {
     return await openDatabase(
       path,
       version: 1,
-      onCreate: _createDatabase,
+      onCreate: _createDatabase,//CALLBACK
     );
   }
 
+//DATABASE CREATE TABLE
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
       CREATE TABLE student_table (
@@ -41,6 +42,7 @@ class DatabaseHelper {
     ''');
   }
 
+//INSERT DATA
   Future<int> insert(Map<String, dynamic> row) async {
      
     final db = await database;
@@ -48,11 +50,7 @@ class DatabaseHelper {
     
   }
 
-  // Future<List<Map<String, dynamic>>> displayAll() async {
-  //   final db = await database;
-  //   return await db.query('student_table');
-  // }
-
+//UPDATE TABLE
   Future<int> update(Map<String, dynamic> row) async {
     final db = await database;
     return await db.update(
