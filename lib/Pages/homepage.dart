@@ -94,9 +94,13 @@ class _HomepageState extends State<Homepage> {
               future: dbhelper.searchAll(searchController.text),
              
             builder: (context, snapshot) {
-              // if(!snapshot.hasData){
-              //   return CircularProgressIndicator();
-              // }
+
+
+              
+              if (!snapshot.hasData) { //avoid null error
+                  return const CircularProgressIndicator();
+                }
+
               final data=snapshot.data!;
               return ListView.builder(
                 itemCount: data.length,
@@ -137,7 +141,7 @@ class _HomepageState extends State<Homepage> {
       )
     );
   }
-
+//DELETE BUTTON ACTION
   void _showDeleteDialog(int id, BuildContext context) {
     showDialog(
       context: context,
@@ -169,14 +173,14 @@ class _HomepageState extends State<Homepage> {
     dbhelper.delete(id).then((rowsDeleted) {
       if (rowsDeleted > 0) {
         setState(() {
-          // Reload data after deletion
+          
         });
       }
     });
   }
 
 
-
+//EDIT DATA ACTION
   void _editData(Map<String, dynamic> data, BuildContext context) {
     _userNameController.text = data['name'];
     _userContactController.text = data['contact'].toString();
@@ -211,7 +215,7 @@ class _HomepageState extends State<Homepage> {
                         height: 100,
                         width: 100,
                         decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.deepOrange),
+                          border: Border.all(width: 2, color: Color.fromARGB(255, 7, 7, 7)),
                         ),
                         child: Image.file(_selectedImage!, fit: BoxFit.cover)),
                   ),
@@ -251,8 +255,6 @@ class _HomepageState extends State<Homepage> {
     );
   }
   
-
-
 void updateData(int id) {
     final name = _userNameController.text;
     final contact = int.tryParse(_userContactController.text) ?? 0;

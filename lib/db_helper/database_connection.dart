@@ -43,8 +43,7 @@ class DatabaseHelper {
   }
 
 //INSERT DATA
-  Future<int> insert(Map<String, dynamic> row) async {
-     
+  Future<int> insert(Map<String, dynamic> row) async {   
     final db = await database;
     return await db.insert('student_table', row);
     
@@ -61,6 +60,7 @@ class DatabaseHelper {
     );
   }
 
+//DELETE DATA
   Future<int> delete(int id) async {
     final db = await database;
     return await db.delete(
@@ -69,7 +69,9 @@ class DatabaseHelper {
       whereArgs: [id],
     );
   }
-  Future<List<Map<String, dynamic>>> searchAll(String searchQuery) async {
+
+  //SEARCH DATA
+  Future<List<Map<String, dynamic>>> searchAll(String searchQuery) async{
     final db = await database;
     if (searchQuery.isEmpty) {
       return await db.query('student_table');

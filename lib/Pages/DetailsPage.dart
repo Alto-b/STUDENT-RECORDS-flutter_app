@@ -55,7 +55,8 @@ class _DetailsPageState extends State<DetailsPage> {
             leading: Icon(Icons.home),
             title: Text("Contact : ${widget.contact}",
                 style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500)),
-          )
+          ),
+         
         ],
       ),
     );

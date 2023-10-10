@@ -138,6 +138,7 @@ class _AddPageState extends State<AddPage> {
                     ),
           
                     SizedBox(height: 50,),
+                    
           
                     Row(children: [
                       //INSERT BUTTON
