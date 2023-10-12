@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_records/Pages/DetailsPage.dart';
+import 'package:student_records/Pages/detailspage.dart';
 import 'package:student_records/Pages/add.dart';
 import 'package:student_records/db_helper/database_connection.dart';
 
